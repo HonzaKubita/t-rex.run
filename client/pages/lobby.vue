@@ -1,5 +1,6 @@
 <template>
-<div class="index">
+<div class="lobby">
+
 
 
 </div>
