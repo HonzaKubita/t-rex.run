@@ -1,7 +1,7 @@
 <template>
 <div class="notfound">
 
-    <img src="/404.png" alt="404">
+    <img src="/assets/404.png" alt="404">
     <h1>404 Not Found!</h1>
     <NuxtLink to="/" class="button">Back to home</NuxtLink>
 

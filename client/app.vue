@@ -3,7 +3,7 @@
     <NuxtPage />
 
     <a href="https://github.com/HonzaKubita/t-rex.run" target="_blank" class="github-link">
-        <img src="/github.svg">
+        <img src="/assets/github.svg">
     </a>
   </div>
 </template>
