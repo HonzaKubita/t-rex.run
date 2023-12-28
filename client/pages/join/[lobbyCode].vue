@@ -17,6 +17,9 @@
 
 <script setup>
 import client from "@/multiplayerjs";
+import { useMainStore } from "@/stores/mainStore";
+
+const store = useMainStore();
 
 const route = useRoute();
 
@@ -29,6 +32,7 @@ function joinLobby() {
 
 function onJoinLobbySuccess(data) {
     const players = data.players;
+    store.addPlayers(players);
     console.log(`Joined lobby ${lobbyCode} with players: ${players.map(p => p.name)}`);
     navigateTo("/lobby/" + lobbyCode);
 }
