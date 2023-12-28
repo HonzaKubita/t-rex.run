@@ -16,14 +16,14 @@ export const useMainStore = defineStore('mainStore', {
     actions: {
         addPlayer(player){
             this.players.push(player)
-          },
+        },
       
-          addPlayers(players){
+        addPlayers(players){
             this.players.push(...players)
-          },
-      
-          removePlayer(playerId) {
-              this.players = this.players.filter(player => player.id != playerId)
-          },
+        },
+    
+        removePlayer(playerId) {
+            this.players = this.players.filter(player => player.id != playerId)
+        },
     },
   });
