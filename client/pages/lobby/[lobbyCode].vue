@@ -23,7 +23,7 @@ import { useMainStore } from "@/stores/mainStore";
 
 const store = useMainStore();
 
-const { players, localPlayer } = storeToRefs(store);
+const { localPlayer } = storeToRefs(store);
 
 function startGame() {
     client.startGame();
