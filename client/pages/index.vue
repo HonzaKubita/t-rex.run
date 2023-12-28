@@ -7,18 +7,18 @@
 
         <div class="index-inputs">
             <p>Nickname</p>
-            <input type="text" placeholder="T-rex" class="input"/>
+            <input type="text" placeholder="T-rex" class="input" v-model="nicknameInput"/>
 
             <div>
                 <p>Lobby Code</p>
-                <input type="text" placeholder="4JX2M0" class="input"/>
+                <input type="text" placeholder="4JX2M0" class="input" v-model="lobbyCodeInput"/>
             </div>
 
         </div>
 
         <div class="index-buttons">
-            <button @click="hostGame" class="button">Host Game</button>
-            <button @click="joinGame" class="button">Join Game</button>
+            <button class="button" @click="hostLobby">Host Game</button>
+            <button class="button" @click="joinLobby">Join Game</button>
         </div>
     </div>
 
@@ -32,15 +32,41 @@
 <script setup>
 import client from "@/multiplayerjs";
 
-function hostGame() {
-  
+const nicknameInput = ref("");
+const lobbyCodeInput = ref("");
+
+function hostLobby() {
+    client.hostLobby(nicknameInput.value);
 }
 
-function joinGame() {
-
+function joinLobby() {
+    client.joinLobby(lobbyCodeInput.value, nicknameInput.value);
 }
 
+function onHostLobbySuccess(data) {
+    const lobbyCode = data.lobbyCode;
+    console.log(`Hosted lobby ${lobbyCode}`);
+    navigateTo("/lobby/" + lobbyCode);
+}
 
+function onJoinLobbySuccess(data) {
+    const players = data.players;
+    console.log(`Joined lobby ${lobbyCodeInput.value} with players: ${players.map(p => p.name)}`);
+    navigateTo("/lobby/" + lobbyCodeInput.value);
+}
+
+// Register callbacks
+client.on("hostLobbySuccess", onHostLobbySuccess);
+client.on("joinLobbySuccess", onJoinLobbySuccess);
+
+// Unregister callbacks before leaving page
+onUnmounted(() => {
+    client.removeCallback("hostLobbySuccess", onHostLobbySuccess);
+    client.removeCallback("joinLobbySuccess", onJoinLobbySuccess);
+});
+
+
+// Small easter egg
 const trexJumping = ref(false);
 
 function animateTrex() {
