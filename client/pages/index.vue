@@ -9,7 +9,7 @@
             <p>Nickname</p>
             <input type="text" placeholder="T-rex" class="input" v-model="nicknameInput"/>
 
-            <div>
+            <div v-if="lobbyCodeRequired">
                 <p>Lobby Code</p>
                 <input type="text" placeholder="4JX2M0" class="input" v-model="lobbyCodeInput"/>
             </div>
@@ -37,12 +37,17 @@ const store = useMainStore();
 
 const nicknameInput = ref("");
 const lobbyCodeInput = ref("");
+const lobbyCodeRequired = ref(false);
 
 function hostLobby() {
     client.hostLobby(nicknameInput.value);
 }
 
 function joinLobby() {
+    if (!lobbyCodeRequired.value) {
+        lobbyCodeRequired.value = true;
+        return;
+    }
     client.joinLobby(lobbyCodeInput.value, nicknameInput.value);
 }
 
