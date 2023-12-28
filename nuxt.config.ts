@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr: false,
-  css: ["@/styles/main.css"],
+  css: ["@/styles/main.css", "@/styles/components.css"],
   app: {
     head: {
       title: "T-rex Multiplayer",
