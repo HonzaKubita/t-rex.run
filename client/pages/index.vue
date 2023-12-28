@@ -30,10 +30,12 @@
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia';
 import client from "@/multiplayerjs";
 import { useMainStore } from "@/stores/mainStore";
 
 const store = useMainStore();
+const { localPlayerId } = storeToRefs(store);
 
 const nicknameInput = ref("");
 const lobbyCodeInput = ref("");
@@ -54,6 +56,14 @@ function joinLobby() {
 function onHostLobbySuccess(data) {
     const lobbyCode = data.lobbyCode;
     console.log(`Hosted lobby ${lobbyCode}`);
+
+    // Add the hosting player to the store
+    store.addPlayer({
+        id: localPlayerId,
+        name: nicknameInput.value,
+        isMaster: true
+    });
+
     navigateTo("/lobby/" + lobbyCode);
 }
 

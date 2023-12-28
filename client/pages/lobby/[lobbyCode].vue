@@ -12,15 +12,22 @@
         </p>
     </div>
 
+    <button class="button" @click="startGame" v-if="localPlayer.isMaster">Start Game</button>
+
 </div>
 </template>
 
 <script setup>
-import client from "@/multiplayerjs";
+import { storeToRefs } from 'pinia';
 import { useMainStore } from "@/stores/mainStore";
 
 const store = useMainStore();
 
+const { players, localPlayer } = storeToRefs(store);
+
+function startGame() {
+    client.startGame();
+}
 </script>
 
 <style>
