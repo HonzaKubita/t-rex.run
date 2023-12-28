@@ -292,9 +292,9 @@ ms@2.1.3:
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
 multiplayerjs-server@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/multiplayerjs-server/-/multiplayerjs-server-1.0.0.tgz#b1c8232775a76591ccbd291ade3c8386d4d79fcb"
-  integrity sha512-OB9onAqPiHQXDmoYFCXqrplaEi+eoJ78gAIu+SRI3moeoauvSg2q3bulr1zGHB66Fxph9OIQnbujSjAKIrrV4A==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/multiplayerjs-server/-/multiplayerjs-server-1.0.1.tgz#589d1d4f41dc1ff1d43fc002c886b9217e82bf18"
+  integrity sha512-94H4jzo0iJvmpxLfKUJJG8GhgI43P8ANpee5gpbk/9ZqTjPIG/UvmIN0ZheHrvPQAJGaFB3IHBh9Lj7EEshbQQ==
   dependencies:
     express "^4.18.2"
     ws "^8.16.0"
