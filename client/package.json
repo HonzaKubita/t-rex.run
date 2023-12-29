@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
-    "multiplayerjs-client": "^1.0.0",
+    "multiplayerjs-client": "^1.0.1",
     "pinia": "^2.1.7"
   }
 }

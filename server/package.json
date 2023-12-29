@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "multiplayerjs-server": "^1.0.0"
+    "multiplayerjs-server": "^1.0.4"
   }
 }
