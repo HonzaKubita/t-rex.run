@@ -3354,10 +3354,10 @@ ms@2.1.3:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
-multiplayerjs-client@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/multiplayerjs-client/-/multiplayerjs-client-1.0.1.tgz#0d0b4ba2201fdf365ded52a3f2e50035b16b802b"
-  integrity sha512-s1EL4ujp75Ec7lBuXJIgwSXUOV5puZ7YIDh12Nd5bjxvLJNCWuucYVbY1ap7Mk3SBq9y6lUNWA1APXtSibuvDg==
+multiplayerjs-client@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/multiplayerjs-client/-/multiplayerjs-client-1.0.2.tgz#847d1b1b4dc1efe3eb1e2284f229852810e933bc"
+  integrity sha512-wXK09q/TZIF9zSOHDYejY7LUONDzkm36YolLE2IDc9f7v50pMyZyR4N3NFIXBZ1kUBbfqZBbRlxn0rJNPPTdVQ==
 
 nanoid@^3.3.7:
   version "3.3.7"
