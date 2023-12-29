@@ -6,6 +6,7 @@ export const useMainStore = defineStore('mainStore', {
   
         players: [],
         localPlayerId: null,
+        lobbyCode: null,
   
     }),
 
@@ -20,6 +21,10 @@ export const useMainStore = defineStore('mainStore', {
     },
 
     actions: {
+        setLobbyCode(lobbyCode) {
+            this.lobbyCode = lobbyCode;
+        },
+
         addPlayer(player) {
             this.players.push(player);
         },

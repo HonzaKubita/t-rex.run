@@ -64,12 +64,15 @@ function onHostLobbySuccess(data) {
         isMaster: true
     });
 
+    store.setLobbyCode(lobbyCode);
+
     navigateTo("/lobby/" + lobbyCode);
 }
 
 function onJoinLobbySuccess(data) {
     const players = data.players;
     store.addPlayers(players);
+    store.setLobbyCode(lobbyCodeInput.value);
     console.log(`Joined lobby ${lobbyCodeInput.value} with players: ${players.map(p => p.name)}`);
     navigateTo("/lobby/" + lobbyCodeInput.value);
 }

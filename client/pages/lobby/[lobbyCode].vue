@@ -12,7 +12,10 @@
         </p>
     </div>
 
-    <button class="button" @click="startGame" v-if="localPlayer.isMaster">Start Game</button>
+    <div class="lobby-button-container">
+        <button class="button" @click="copyLobbyCode">Invite Players</button>
+        <button class="button" @click="startGame" v-if="localPlayer.isMaster">Start Game</button>
+    </div>
 
 </div>
 </template>
@@ -20,14 +23,33 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useMainStore } from "@/stores/mainStore";
+import client from '@/multiplayerjs';
 
 const store = useMainStore();
 
-const { localPlayer } = storeToRefs(store);
+const { lobbyCode, localPlayer } = storeToRefs(store);
 
+function copyLobbyCode() {
+    console.log(lobbyCode);
+    navigator.clipboard.writeText(`${window.location.host}/join/${lobbyCode.value}`);
+}
+
+// Function to start game as host
 function startGame() {
     client.startGame();
 }
+
+// Callback for when the host starts the game 
+// (both when the host is the local player and when the host is a remote player)
+// The event gets broadcasted to all players in the lobby
+function onGameStarted() {
+    navigateTo("/game");
+}
+client.on("gameStarted", onGameStarted);
+
+onUnmounted(() => {
+    client.removeCallback("startGame", onGameStarted);
+});
 </script>
 
 <style>
@@ -50,6 +72,16 @@ function startGame() {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
+
+    margin: 30px;
+
+    gap: 10px;
+}
+
+.lobby-button-container {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
 
     margin: 30px;
