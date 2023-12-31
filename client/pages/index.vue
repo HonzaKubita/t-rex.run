@@ -6,13 +6,17 @@
     <div class="index-menu">
 
         <div class="index-inputs">
-            <p>Nickname</p>
-            <input type="text" placeholder="T-rex" class="input" v-model="nicknameInput"/>
+            <div>
+                <p>Nickname</p>
+                <input type="text" placeholder="T-rex" class="input" v-model="nicknameInput" @input="resetErrorText"/>
+            </div>
 
             <div v-if="lobbyCodeRequired">
                 <p>Lobby Code</p>
-                <input type="text" placeholder="4JX2M0" class="input" v-model="lobbyCodeInput"/>
+                <input type="text" placeholder="4JX2M0" class="input" v-model="lobbyCodeInput" @input="resetErrorText"/>
             </div>
+
+            <p class="index-error" v-if="errorText">{{ errorText }}</p>
 
         </div>
 
@@ -40,6 +44,12 @@ const { localPlayerId } = storeToRefs(store);
 const nicknameInput = ref("");
 const lobbyCodeInput = ref("");
 const lobbyCodeRequired = ref(false);
+
+const errorText = ref("");
+
+function resetErrorText() {
+    errorText.value = "";
+}
 
 function hostLobby() {
     client.send("hostLobby", { name: nicknameInput.value });
@@ -69,6 +79,11 @@ function onHostLobbySuccess(data) {
     navigateTo("/lobby/" + lobbyCode);
 }
 
+function onHostLobbyError(data) {
+    const error = data.error;
+    errorText.value = error;
+}
+
 function onJoinLobbySuccess(data) {
     const players = data.players;
     store.addPlayers(players);
@@ -77,14 +92,23 @@ function onJoinLobbySuccess(data) {
     navigateTo("/lobby/" + lobbyCodeInput.value);
 }
 
+function onJoinLobbyError(data) {
+    const error = data.error;
+    errorText.value = error;
+}
+
 // Register callbacks
 client.on("hostLobbySuccess", onHostLobbySuccess);
+client.on("hostLobbyError", onHostLobbyError);
 client.on("joinLobbySuccess", onJoinLobbySuccess);
+client.on("joinLobbyError", onJoinLobbyError);
 
 // Unregister callbacks before leaving page
 onUnmounted(() => {
     client.removeCallback("hostLobbySuccess", onHostLobbySuccess);
+    client.removeCallback("hostLobbyError", onHostLobbyError);
     client.removeCallback("joinLobbySuccess", onJoinLobbySuccess);
+    client.removeCallback("joinLobbyError", onJoinLobbyError);
 });
 
 
@@ -121,6 +145,14 @@ function animateTrex() {
 
 .index-inputs {
     margin: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.index-error {
+    color: red;
 }
 
 .index-buttons {
