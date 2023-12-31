@@ -42,7 +42,7 @@ const lobbyCodeInput = ref("");
 const lobbyCodeRequired = ref(false);
 
 function hostLobby() {
-    client.hostLobby(nicknameInput.value);
+    client.send("hostLobby", { name: nicknameInput.value });
 }
 
 function joinLobby() {
@@ -50,7 +50,7 @@ function joinLobby() {
         lobbyCodeRequired.value = true;
         return;
     }
-    client.joinLobby(lobbyCodeInput.value, nicknameInput.value);
+    client.send("joinLobby", { lobbyCode: lobbyCodeInput.value, name: nicknameInput.value });
 }
 
 function onHostLobbySuccess(data) {

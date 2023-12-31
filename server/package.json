@@ -1,5 +1,17 @@
 {
   "dependencies": {
-    "multiplayerjs-server": "^1.0.4"
-  }
+    "express": "^4.18.2",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "util": "^0.12.5"
+  },
+  "name": "multiplayerjs-server",
+  "version": "1.0.5",
+  "description": "Server side package of multiplayerjs. Multiplayerjs is a library used for creating simple web online games with a lobby system.",
+  "main": "index.js",
+  "repository": "https://github.com/HonzaKubita/multiplayerjs",
+  "author": "Honza Kubita",
+  "license": "MIT",
+  "private": false
 }

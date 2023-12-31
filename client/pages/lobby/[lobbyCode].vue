@@ -36,7 +36,7 @@ function copyLobbyCode() {
 
 // Function to start game as host
 function startGame() {
-    client.startGame();
+    client.send("startGame", {});
 }
 
 // Callback for when the host starts the game 

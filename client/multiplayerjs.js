@@ -1,5 +1,68 @@
-import MultiplayerJSClient from 'multiplayerjs-client';
+export default {
+    socket: null,
 
-const client = new MultiplayerJSClient();
+    callbacks: {
+        // eventName: [callback, callback, ...]
+    },
 
-export default client;
+    playerId: null,
+
+    on(eventName, callback) {
+        if (!this.callbacks[eventName]) {
+            this.callbacks[eventName] = [];
+        }
+
+        this.callbacks[eventName].push(callback);
+    },
+
+    removeCallback(eventName, callback) {
+        if (!this.callbacks[eventName]) {
+            return;
+        }
+
+        this.callbacks[eventName] = this.callbacks[eventName].filter(cb => cb !== callback);
+    },
+
+    connect(url = `ws://${window.location.hostname}:3000`) {
+
+        this.on("playerId", (data) => {
+            console.log(`[MultiplayerJS] Received playerId: ${data.playerId}`)
+            this.playerId = data.playerId;
+        });
+
+        console.log(`[MultiplayerJS] Connecting to server... (${url})`);
+        this.socket = new WebSocket(url);
+
+        this.socket.onmessage = (event) => {
+            const { eventName, data } = JSON.parse(event.data);
+
+            if (this.callbacks[eventName]) {
+                this.callbacks[eventName].forEach(callback => {
+                    callback(data);
+                });
+            }
+        };
+
+        this.socket.onclose = () => {
+            console.log("[MultiplayerJS] Connection closed");
+        }
+
+        return new Promise((resolve, reject) => {
+            this.socket.onopen = () => {
+                console.log("[MultiplayerJS] Connection successful");
+                resolve();
+            };
+
+            this.socket.onerror = (error) => {
+                console.error("[MultiplayerJS] Connection failed");
+                reject(error);
+            };
+        });
+    },
+
+    send(eventName, data) {
+        const payload = { eventName, data };
+        console.log(payload);
+        this.socket.send(JSON.stringify(payload));
+    },
+}

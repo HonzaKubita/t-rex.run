@@ -27,7 +27,7 @@ const nicknameInput = ref("");
 const lobbyCode = route.params.lobbyCode;
 
 function joinLobby() {
-    client.joinLobby(lobbyCode, nicknameInput.value);
+    client.send("joinLobby", { lobbyCode: lobbyCode, name: nicknameInput.value });
 }
 
 function onJoinLobbySuccess(data) {
