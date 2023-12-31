@@ -113,7 +113,7 @@ onUnmounted(() => {
 
 
 // Small easter egg
-const trexJumping = ref(false);
+const trexJumping = ref(true);
 
 function animateTrex() {
     trexJumping.value = true;
