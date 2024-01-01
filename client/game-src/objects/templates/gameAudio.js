@@ -1,15 +1,15 @@
 export default class GameAudio {
-  constructor(name, src, type="audio/wav") {
-    this.name = name;
+    constructor(name, src, type="audio/wav") {
+        this.name = name;
 
-    let srcEl = document.createElement("source");
-    srcEl.type = type;
-    srcEl.src = src;
+        let srcEl = document.createElement("source");
+        srcEl.type = type;
+        srcEl.src = src;
 
-    this.audio = new Audio();
-    this.audio.appendChild(srcEl);
-  }
-  play() {
-    this.audio.play();
-  }
+        this.audio = new Audio();
+        this.audio.appendChild(srcEl);
+    }
+    play() {
+        this.audio.play();
+    }
 }

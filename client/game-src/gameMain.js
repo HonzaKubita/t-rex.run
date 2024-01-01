@@ -21,11 +21,10 @@ function gameLoop() {
 }
 
 function start() {
-  input.init();
-  
+    input.init();
 }
 
 export default {
-  mountDiv: (divId) => {render.mount(divId)},
-  start
+    mountDiv: (divId) => {render.mount(divId)},
+    start
 } 
