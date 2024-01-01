@@ -1,9 +1,9 @@
 <template>
 <div class="game">
 
-    <h1 class="title">Game</h1>
+    <h1 class="title">T-rex multiplayer</h1>
 
-    <div class="game-canvas" >
+    <div class="game-canvas">
         <!-- Objects will be inserted here -->
     </div>
 
@@ -15,7 +15,7 @@ import game from "@/game-src/gameMain";
 
 onMounted(() => {
     game.mountDiv(document.querySelector(".game-canvas"));
-    game.start();
+    game.init();
 });
 
 </script>

@@ -16,6 +16,42 @@ import Ground from './objects/gameObjects/ground'
 import Cloud from './objects/gameObjects/cloud'
 import GameOver from './objects/gameObjects/gameOver'
 
+// Local synced to server
+let localTrex = null;
+
+// Local only
+let clouds = [];
+
+// Objects from server
+let trexes = {
+    // playerid: trex
+};
+let obstacles = [
+    // cactuses and birds
+];
+
+function init() {
+    input.init();
+
+    // Create a trex for each player
+    store.players.forEach(player => {
+        const trex = new Trex(0, 8, player, player.id == store.localPlayerId);
+        const nickname = new Nickname(player.name);
+        trex.addChild(nickname);
+        
+        render.addObject(trex);
+    });
+
+    // Create a ground object
+    const ground = new Ground(0, 10);
+    render.addObject(ground);
+
+    // Create a score object
+    const score = new Score(450, 130);
+    render.addObject(score);
+
+    gameLoop();
+}
 
 function gameLoop() {
     render.renderAll();
@@ -24,21 +60,11 @@ function gameLoop() {
 }
 
 function start() {
-    input.init();
-
-    // Create a trex for each player
-    store.players.forEach(player => {
-        const trex = new Trex(10, 10, player, player.id == store.localPlayerId);
-        const nickname = new Nickname(trex);
-        
-        render.addObject(trex);
-        render.addObject(nickname);
-    });
-
     gameLoop();
 }
 
 export default {
     mountDiv: (divId) => {render.mount(divId)},
-    start
+    init,
+    start,
 } 
