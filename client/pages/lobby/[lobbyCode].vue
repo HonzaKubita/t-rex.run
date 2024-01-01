@@ -31,7 +31,6 @@ const store = useMainStore();
 const { lobbyCode, localPlayer, players } = storeToRefs(store);
 
 function copyLobbyCode() {
-    console.log(lobbyCode);
     navigator.clipboard.writeText(`${window.location.host}/?join=${lobbyCode.value}`);
 }
 
