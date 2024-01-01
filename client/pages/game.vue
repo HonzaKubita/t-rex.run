@@ -3,7 +3,7 @@
 
     <h1 class="title">Game</h1>
 
-    <div class="game-canvas">
+    <div class="game-canvas" >
         <!-- Objects will be inserted here -->
     </div>
 
@@ -13,7 +13,10 @@
 <script setup>
 import game from "@/game-src/gameMain";
 
-game.mountDiv(document.querySelector(".game-canvas"));
+onMounted(() => {
+    game.mountDiv(document.querySelector(".game-canvas"));
+    game.start();
+});
 
 </script>
 

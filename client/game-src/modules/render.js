@@ -11,12 +11,14 @@ export class RenderModule {
 
 export default {
     _div: null, // Div element put objects in
+    sceneObjects: [], // Objects in scene
     _inRender: [],
 
-  // Setup functions
-    mount(divId) {
-        this._div = document.getElementById(divId);
+    // Setup functions
+    mount(div) {
+        this._div = div;
     },
+
     _updateObject(object) {
         object.renderUpdate();
         let div = document.getElementById(object.id);
@@ -27,43 +29,38 @@ export default {
         div.style.bottom = `${object.position.y}px`;
     },
 
-    renderAll(objects) {
-        let objectsIds = objects.map(object => object.id)
-        let toBeRemoved = this._inRender.filter(id => !objectsIds.includes(id)); // Object ids that are in _inRender but not in objectsIds
-        let toBeAdded = objectsIds.filter(id => !this._inRender.includes(id)); // Object ids that are not in _inRender but are in objectsIds
+    addObject(object) {
+        let el = document.createElement(object.render.el);
+        el.id = `${object.id}-el`;
 
-        toBeRemoved.forEach(id => { // Remove
-            let el = document.getElementById(id);
-            this._div.removeChild(el);
-            this._inRender.splice(this._inRender.indexOf(id), 1);
-        })
+        let elDiv = document.createElement('div');
+        elDiv.classList.add('game-object');
+        elDiv.id = object.id;
+        elDiv.appendChild(el);
+        
+        for (let i in object.render.properties.divProps) 
+            div[i]=object.render.properties.divProps[i];  // Copy object properties to div
+        for (let i in object.render.properties.elProps) 
+            el[i]=object.render.properties.elProps[i];  // Copy object properties to element
 
-        toBeAdded.forEach(id => { // Add
-            let object = objects.filter(object => object.id == id)[0];
+        if (object.parentId != null) {
+            let parent = document.getElementById(object.parentId);
+            parent.appendChild(elDiv);
+        } else {
+            this._div.appendChild(elDiv);
+        }
 
-            let el = document.createElement(object.render.el);
-            el.id = `${id}-el`;
+        this.sceneObjects.push(object);
+    },
 
-            let elDiv = document.createElement('div');
-            elDiv.classList.add('game-object');
-            elDiv.id = id;
-            elDiv.appendChild(el);
-            
-            for (let i in object.render.properties.divProps) div[i]=object.render.properties.divProps[i];  // Copy object properties to div
-            for (let i in object.render.properties.elProps) el[i]=object.render.properties.elProps[i];  // Copy object properties to element
+    removeObject(object) {
+        let div = document.getElementById(object.id);
+        this._div.removeChild(div);
+        this.sceneObjects.splice(this.sceneObjects.indexOf(object), 1);
+    },
 
-            if (object.parentId != null) {
-                let parent = document.getElementById(object.parentId);
-                parent.appendChild(elDiv);
-            } else {
-                this._div.appendChild(elDiv);
-            }
-            this._inRender.push(id);
-        })
-
-        // All objects are removed/added
-
-        objects.forEach(object => { // Render (move)
+    renderAll() {
+        this.sceneObjects.forEach(object => { // Render (move)
             this._updateObject(object);
         })
     }
