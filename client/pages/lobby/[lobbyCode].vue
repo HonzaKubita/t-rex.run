@@ -31,7 +31,7 @@ const { lobbyCode, localPlayer } = storeToRefs(store);
 
 function copyLobbyCode() {
     console.log(lobbyCode);
-    navigator.clipboard.writeText(`${window.location.host}/join/${lobbyCode.value}`);
+    navigator.clipboard.writeText(`${window.location.host}/?join=${lobbyCode.value}`);
 }
 
 // Function to start game as host

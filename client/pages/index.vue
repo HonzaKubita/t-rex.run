@@ -41,9 +41,11 @@ import { useMainStore } from "@/stores/mainStore";
 const store = useMainStore();
 const { localPlayerId } = storeToRefs(store);
 
+const route = useRoute();
+
 const nicknameInput = ref("");
-const lobbyCodeInput = ref("");
-const lobbyCodeRequired = ref(false);
+const lobbyCodeInput = ref(route.query.join || "");
+const lobbyCodeRequired = ref(lobbyCodeInput.value !== "");
 
 const errorText = ref("");
 
