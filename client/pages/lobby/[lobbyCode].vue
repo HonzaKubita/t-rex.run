@@ -3,10 +3,10 @@
 
     <h1 class="title">Lobby</h1>
 
-    <h3>Players</h3>
+    <h3>Players {{ players.length }}/6</h3>
 
     <div class="lobby-player-list">
-        <p class="button lobby-player-container" v-for="player in store.players">
+        <p class="button lobby-player-container" v-for="player in players">
             <img src="/assets/crown.svg" v-if="player.isMaster">
             {{ player.name }}
         </p>
@@ -27,7 +27,7 @@ import client from '@/multiplayerjs';
 
 const store = useMainStore();
 
-const { lobbyCode, localPlayer } = storeToRefs(store);
+const { lobbyCode, localPlayer, players } = storeToRefs(store);
 
 function copyLobbyCode() {
     console.log(lobbyCode);
@@ -60,6 +60,10 @@ onUnmounted(() => {
     align-items: center;
 
     padding: 20px;
+}
+
+.lobby > .title {
+    margin-bottom: 10px;
 }
 
 .lobby-player-container img {

@@ -1,6 +1,7 @@
 const { uuidv4 } = require('../utils');
 const gameManager = require('../modules/gameManager');
 const validators = require('../modules/validators');
+const settings = require('../modules/settings');
 
 module.exports = class Player {
     constructor(socket) {
@@ -42,6 +43,22 @@ module.exports = class Player {
         if (nameError) {
             this.socket.send("joinLobbyError", {error: nameError});
             return;
+        }
+
+        // Check if the lobby exists (need to check this before checking if the name is taken)
+        if (!gameManager.getGameByCode(lobbyCode)) {
+            this.socket.send("joinLobbyError", {error: "Lobby does not exist"});
+            return;
+        }
+
+        // If enabled, check if the name is already taken
+        if (!settings.allowDuplicateNames) {
+            const nameTaken = gameManager.getGameByCode(lobbyCode).players
+                .some(player => player.name == name);
+            if (nameTaken) {
+                this.socket.send("joinLobbyError", {error: "Name is already taken"});
+                return;
+            }
         }
 
         // Save the name

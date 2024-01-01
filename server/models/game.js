@@ -1,3 +1,5 @@
+const settings = require("../modules/settings");
+
 module.exports = class Game {
     constructor(lobbyCode) {
         this.lobbyCode = lobbyCode;
@@ -34,6 +36,14 @@ module.exports = class Game {
     }
 
     start() {
+        if (this.players.length < settings.minPlayers) {
+            return "Not enough players to start the game";
+        }
+
+        if (this.gameState != "inLobby") {
+            return "Game has already started";
+        }
+
         this.gameState = "inGame";
         this.broadcast("gameStarted", {});
     }

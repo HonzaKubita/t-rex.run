@@ -1,6 +1,6 @@
 const defaultSettings = {
     // Values
-    lobbyMaxPlayers: 8,
+    lobbyMaxPlayers: 6,
     lobbyMinPlayers: 2,
 
     lobbyCodeLength: 6,

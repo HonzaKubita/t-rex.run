@@ -33,7 +33,7 @@ module.exports = {
             return "Game does not exist";
         }
 
-        if (game.players.length >= settings.maxPlayers) {
+        if (game.players.length >= settings.lobbyMaxPlayers) {
             return "Game is full";
         }
 
@@ -69,7 +69,7 @@ module.exports = {
             return "Game does not exist";
         }
 
-        if (game.players.length < settings.minPlayers) {
+        if (game.players.length < settings.lobbyMinPlayers) {
             return "Not enough players to start the game";
         }
 
