@@ -37,6 +37,11 @@ export const useMainStore = defineStore('mainStore', {
             this.players = this.players.filter(player => player.id != playerId);
         },
 
+        resetLobby() {
+            this.players = [];
+            this.lobbyCode = null;
+        },
+
         // Event handlers
         onPlayerJoined(data) {
             const player = data.player;

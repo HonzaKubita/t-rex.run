@@ -7,7 +7,7 @@ module.exports = class Player {
     constructor(socket) {
         this.socket = socket;
 
-        // Generate uid
+        // Generate uidß
         this.id = uuidv4();
 
         // Initialize player variables
@@ -18,9 +18,10 @@ module.exports = class Player {
         // Bind socket events
         this.socket.on("joinLobby", this.joinLobby.bind(this));
         this.socket.on("hostLobby", this.hostLobby.bind(this));
+        this.socket.on("leaveLobby", this.leaveLobby.bind(this));
         this.socket.on("startGame", this.startGame.bind(this));
         // Bind socket.ws close event
-        this.socket.ws.on("close", this.leave.bind(this));
+        this.socket.ws.on("close", this.leaveLobby.bind(this));
     }
 
     getSimplified() {
@@ -108,7 +109,7 @@ module.exports = class Player {
         this.socket.send("hostLobbySuccess", { lobbyCode });
     }
 
-    leave() {
+    leaveLobby() {
         // Remove the player from the game
         gameManager.removePlayerFromGame(this.lobbyCode, this.id);
     }

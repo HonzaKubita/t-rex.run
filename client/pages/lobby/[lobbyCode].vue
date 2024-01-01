@@ -13,8 +13,9 @@
     </div>
 
     <div class="lobby-button-container">
+        <button class="button" @click="leaveLobby">Leave</button>
         <button class="button" @click="copyLobbyCode">Invite Players</button>
-        <button class="button" @click="startGame" v-if="localPlayer.isMaster">Start Game</button>
+        <button class="button" @click="startGame" v-if="localPlayer?.isMaster">Start Game</button>
     </div>
 
 </div>
@@ -32,6 +33,12 @@ const { lobbyCode, localPlayer, players } = storeToRefs(store);
 function copyLobbyCode() {
     console.log(lobbyCode);
     navigator.clipboard.writeText(`${window.location.host}/?join=${lobbyCode.value}`);
+}
+
+function leaveLobby() {
+    client.send("leaveLobby", {});
+    store.resetLobby();
+    navigateTo("/");
 }
 
 // Function to start game as host
