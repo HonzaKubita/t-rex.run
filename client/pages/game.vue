@@ -33,23 +33,23 @@ game.mountDiv(document.querySelector(".game-canvas"));
 /* Game */
 
 .game-canvas {
-  width: 600px;
-  height: 150px;
-  overflow: hidden;
-  position: relative;
-  border: 1px solid black /* Remove in production */
+    width: 600px;
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid black /* Remove in production */
 }
 
 .game-object {
-  position: absolute;
+    position: absolute;
 }
 
-.game-canvas div {
-  /* background-color: rgba(255, 0, 0, 0.603); */
-}
+/* .game-canvas div {
+    background-color: rgba(255, 0, 0, 0.603);
+} */
 
 .game-canvas p {
-  font-size: 8px;
+    font-size: 8px;
 }
 
 
