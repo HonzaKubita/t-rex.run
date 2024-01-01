@@ -17,6 +17,9 @@ export default {
     // Setup functions
     mount(div) {
         this._div = div;
+        // All objects have mainGameContainer as their default parentId
+        // so by default all objects are added to the mainGameContainer
+        this._div.id = "mainGameContainer";
     },
 
     _updateObject(object) {
@@ -43,13 +46,17 @@ export default {
         for (let i in object.render.properties.elProps) 
             el[i]=object.render.properties.elProps[i];  // Copy object properties to element
 
-        if (object.parentId != null) {
-            let parent = document.getElementById(object.parentId);
-            parent.appendChild(elDiv);
-        } else {
-            this._div.appendChild(elDiv);
-        }
+        // Add object to their parent (default is mainGameContainer)
+        let parent = document.getElementById(object.parentId);
+        parent.appendChild(elDiv);
 
+        // Add all children to the scene 
+        // (they will be added into this object as their parentId is not null)
+        object.children.forEach(child => {
+            this.addObject(child);
+        });
+
+        // Add object to the sceneObjects array so it can be updated with renderAll()
         this.sceneObjects.push(object);
     },
 
@@ -60,8 +67,15 @@ export default {
     },
 
     renderAll() {
-        this.sceneObjects.forEach(object => { // Render (move)
+        // Update all objects and their children
+        this.sceneObjects.forEach(object => {
+            // Update
             this._updateObject(object);
+
+            // Update children
+            object.children.forEach(child => {
+                this._updateObject(child);
+            });
         })
     }
 }
