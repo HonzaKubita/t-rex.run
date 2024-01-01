@@ -38,6 +38,9 @@ onMounted(() => {
 .game-canvas {
     width: 600px;
     height: 150px;
+
+    margin-top: 70px;
+
     overflow: hidden;
     position: relative;
     border: 1px solid black /* Remove in production */
