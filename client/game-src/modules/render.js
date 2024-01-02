@@ -26,10 +26,26 @@ export default {
         object.renderUpdate();
         let div = document.getElementById(object.id);
         let el = document.getElementById(`${object.id}-el`);
-        for (let i in object.render.properties.div) div[i]=object.render.properties.div[i]; // Copy object properties to div
-        for (let i in object.render.properties.el) el[i]=object.render.properties.el[i]; // Copy object properties to element
-        div.style.left = `${object.position.x}px`; // Move object
-        div.style.bottom = `${object.position.y}px`;
+
+        // Update div properties only if they don't match the object's properties
+        for (let i in object.render.properties.div) {
+            if (div[i] != object.render.properties.div[i]) {
+                div[i] = object.render.properties.div[i];
+            }
+        }
+
+        // Update el properties only if they don't match the object's properties
+        for (let i in object.render.properties.el) {
+            if (el[i] != object.render.properties.el[i]) {
+                el[i] = object.render.properties.el[i];
+            }
+        }
+
+        // Update position only if it doesn't match the object's position
+        if (div.style.left != `${object.position.x}px` || div.style.bottom !== `${object.position.y}px`) {
+            div.style.left = `${object.position.x}px`; // Move object
+            div.style.bottom = `${object.position.y}px`;
+        }
     },
 
     addObject(object) {
