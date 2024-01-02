@@ -14,7 +14,7 @@
 
     <div class="lobby-button-container">
         <button class="button" @click="leaveLobby">Leave</button>
-        <button class="button" @click="copyLobbyCode">Invite Players</button>
+        <button class="button" @click="copyLobbyCode">{{ invitePlayersText }}</button>
         <button class="button" @click="startGame" v-if="localPlayer?.isMaster">Start Game</button>
     </div>
 
@@ -30,8 +30,11 @@ const store = useMainStore();
 
 const { lobbyCode, localPlayer, players } = storeToRefs(store);
 
+const invitePlayersText = ref("Invite Players");
 function copyLobbyCode() {
     navigator.clipboard.writeText(`${window.location.host}/?join=${lobbyCode.value}`);
+    invitePlayersText.value = "Link Copied!";
+    setTimeout(() => invitePlayersText.value = "Invite Players", 2000);
 }
 
 function leaveLobby() {
