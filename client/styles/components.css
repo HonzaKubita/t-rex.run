@@ -6,6 +6,9 @@
 .button {
     width: 250px;
     height: 80px;
+    min-width: fit-content;
+
+    padding: 8px;
 
     border: solid black 4px;
     color: #000000;
