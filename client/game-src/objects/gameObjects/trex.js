@@ -14,7 +14,7 @@ export default class Trex extends ImageGameObject {
         this.player = player;
 
         this.collisionBox = new CollisionBox(8, 8, 24, 31);
-        this.addChild(this.collisionBox.debugBox);
+        // this.addChild(this.collisionBox.debugBox);
     }
     renderUpdate() {
         switch(this.state) {

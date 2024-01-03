@@ -24,6 +24,6 @@ export default class Cactus extends ImageGameObject {
 
         const collisionBoxSize = collisionBoxes[size][tier];
         this.collisionBox = new CollisionBox(collisionBoxSize.x, collisionBoxSize.y, collisionBoxSize.width, collisionBoxSize.height);
-        this.addChild(this.collisionBox.debugBox);
+        // this.addChild(this.collisionBox.debugBox);
     }
 }
