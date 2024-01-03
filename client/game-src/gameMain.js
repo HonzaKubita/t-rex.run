@@ -46,13 +46,21 @@ function init() {
 
 let alive = true;
 
+let lastTime = Date.now();
+
 function gameLoop() {
+    // Delta time
+    let now = Date.now();
+    let deltaTime = (now - lastTime) / 1000.0 // Calculate delta time
+    lastTime = now;
 
     if (!gameRunning) return;
 
     // Local game
     if (alive) {
-        localGame.update();
+
+        localGame.update(deltaTime);
+
         const collisions = checkCollisions(localGame.localTrex, serverGame.obstacles);
         if (collisions.length > 0) {
             // Trex has collided with an obstacle = dead
@@ -66,11 +74,11 @@ function gameLoop() {
         }
     }
 
-    serverGame.update();
+    serverGame.update(deltaTime);
 
     render.renderAll();
 
-    requestAnimationFrame(gameLoop);
+    setTimeout(gameLoop);
 }
 
 function start() {

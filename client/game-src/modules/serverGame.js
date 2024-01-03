@@ -27,7 +27,7 @@ export default {
     ground: null,
 
     score: null,
-    speed: 1,
+    speed: 250,
 
     // Callbacks
 
@@ -97,14 +97,14 @@ export default {
         client.on('playerLeft', this.onPlayerLeft.bind(this));
     },
 
-    update() {
+    update(deltaTime) {
         // Move obstacles
         this.obstacles.forEach(obstacle => {
-            obstacle.position.x -= this.speed;
+            obstacle.position.x -= this.speed * deltaTime;
         });
 
         // Move ground
-        this.ground.position.x -= this.speed;
+        this.ground.position.x -= this.speed * deltaTime;
         if (this.ground.position.x <= -1200) {
             this.ground.position.x = 0;
         }

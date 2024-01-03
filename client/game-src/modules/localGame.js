@@ -15,9 +15,9 @@ import Cloud from '../objects/gameObjects/cloud'
 export default {
     // Constants
     groundHeight: 8,
-    gravity: -0.5,
-    trexMoveSpeed: 5,
-    trexJumpSpeed: 9,
+    gravity: -1400,
+    trexMoveSpeed: 300,
+    trexJumpSpeed: 500,
 
     // Local synced to server
     localTrex: null,
@@ -39,11 +39,11 @@ export default {
         this.localTrex.controlsVelocity = { x: 0, y: 0 };
     },
 
-    update() {
+    update(deltaTime) {
         // Local gameplay update
     
         // Gravity
-        this.localTrex.velocity.y += this.gravity;
+        this.localTrex.velocity.y += this.gravity * deltaTime;
     
         // Check if trex hits the ground
         if (this.localTrex.position.y <= this.groundHeight) {
@@ -80,8 +80,8 @@ export default {
         }
     
         // Apply velocity to position
-        this.localTrex.position.x += this.localTrex.velocity.x + this.localTrex.controlsVelocity.x;
-        this.localTrex.position.y += this.localTrex.velocity.y + this.localTrex.controlsVelocity.y;
+        this.localTrex.position.x += (this.localTrex.velocity.x + this.localTrex.controlsVelocity.x) * deltaTime;
+        this.localTrex.position.y += (this.localTrex.velocity.y + this.localTrex.controlsVelocity.y) * deltaTime;
     
         // Update trex state
         if (this.localTrex.position.y == this.groundHeight) {
