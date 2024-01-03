@@ -15,7 +15,7 @@
     <div class="lobby-button-container">
         <button class="button" @click="leaveLobby">Leave</button>
         <button class="button" @click="copyLobbyCode">{{ invitePlayersText }}</button>
-        <button class="button" @click="startGame" v-if="localPlayer?.isMaster">Start Game</button>
+        <button class="button lobby-start-game" @click="startGame" v-if="localPlayer?.isMaster">Start Game</button>
     </div>
 
 </div>
@@ -32,7 +32,7 @@ const { lobbyCode, localPlayer, players } = storeToRefs(store);
 
 const invitePlayersText = ref("Invite Players");
 function copyLobbyCode() {
-    navigator.clipboard.writeText(`${window.location.host}/?join=${lobbyCode.value}`);
+    navigator.clipboard.writeText(`${window.location.protocol}//${window.location.host}/?join=${lobbyCode.value}`);
     invitePlayersText.value = "Link Copied!";
     setTimeout(() => invitePlayersText.value = "Invite Players", 2000);
 }
@@ -82,26 +82,37 @@ onUnmounted(() => {
 }
 
 .lobby-player-list {
-    max-width: 80vw;
+    max-width: 75vw;
 
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
 
-    margin: 30px;
+    margin: 150px;
 
     gap: 10px;
 }
 
 .lobby-button-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 
     margin: 30px;
 
     gap: 10px;
+}
+
+.lobby-start-game {
+    color: #ffffff;
+    background-color: #000000;
+}
+
+.lobby-start-game:hover {
+    color: black;
+    background-color: #ffffff;
 }
 
 </style>

@@ -142,7 +142,7 @@ function animateTrex() {
     align-items: center;
     justify-content: center;
 
-    margin: 10px;
+    margin: 140px;
 }
 
 .index-inputs {
@@ -151,6 +151,8 @@ function animateTrex() {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    gap: 15px;
 }
 
 .index-error {
@@ -160,6 +162,8 @@ function animateTrex() {
 .index-buttons {
     display: flex;
     flex-direction: row;
+
+    margin: 25px;
     
     gap: 20px;
 }
