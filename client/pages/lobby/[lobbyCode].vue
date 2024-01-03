@@ -13,9 +13,9 @@
     </div>
 
     <div class="lobby-button-container">
-        <button class="button" @click="leaveLobby">Leave</button>
-        <button class="button" @click="copyLobbyCode">{{ invitePlayersText }}</button>
         <button class="button lobby-start-game" @click="startGame" v-if="localPlayer?.isMaster">Start Game</button>
+        <button class="button" @click="copyLobbyCode">{{ invitePlayersText }}</button>
+        <button class="button lobby-leave" @click="leaveLobby">Leave</button>
     </div>
 
 </div>
@@ -89,7 +89,7 @@ onUnmounted(() => {
     flex-wrap: wrap;
     justify-content: center;
 
-    margin: 150px;
+    margin: 130px;
 
     gap: 10px;
 }
@@ -113,6 +113,10 @@ onUnmounted(() => {
 .lobby-start-game:hover {
     color: black;
     background-color: #ffffff;
+}
+
+.lobby-leave {
+    margin-top: 30px;
 }
 
 </style>
