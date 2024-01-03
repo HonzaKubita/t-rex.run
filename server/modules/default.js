@@ -9,7 +9,7 @@ const defaultSettings = {
 
     serverTicksPerSecond: 30,
 
-    listenPort: 80
+    listenPort: 5432
 };
 
 const defaultValidators = {
