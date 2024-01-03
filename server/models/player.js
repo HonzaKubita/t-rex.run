@@ -14,6 +14,7 @@ module.exports = class Player {
         this.name = "";
         this.lobbyCode = "";
         this.isMaster = false;
+        this.alive = true;
 
         // Bind socket events
         this.socket.on("joinLobby", this.joinLobby.bind(this));

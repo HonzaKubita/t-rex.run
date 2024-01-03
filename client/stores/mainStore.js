@@ -7,6 +7,8 @@ export const useMainStore = defineStore('mainStore', {
         players: [],
         localPlayerId: null,
         lobbyCode: null,
+
+        podium: [],
   
     }),
 

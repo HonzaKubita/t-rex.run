@@ -1,13 +1,15 @@
 const defaultSettings = {
     // Values
     lobbyMaxPlayers: 6,
-    lobbyMinPlayers: 2,
+    lobbyMinPlayers: 1,
 
     lobbyCodeLength: 6,
 
     allowDuplicateNames: false,
 
-    listenPort: 5432
+    serverTicksPerSecond: 30,
+
+    listenPort: 80
 };
 
 const defaultValidators = {

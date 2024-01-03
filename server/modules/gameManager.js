@@ -73,6 +73,10 @@ module.exports = {
             return "Not enough players to start the game";
         }
 
+        if (game.gameState != "inLobby") {
+            return "Game has already started";
+        }
+
         game.start();
         return null;
     }

@@ -1,10 +1,16 @@
 export class RenderModule {
     constructor(el) {
-        this.el = el,
+        this.el = el;
+
+        this.domElements = {
+            div: document.createElement('div'),
+            el: document.createElement(el),
+        };
+
         this.properties = {
             div: {},
             el: {},
-        }
+        };
     }
     renderUpdate() {}
 }
@@ -49,10 +55,10 @@ export default {
     },
 
     addObject(object) {
-        let el = document.createElement(object.render.el);
+        const el = object.render.domElements.el;
         el.id = `${object.id}-el`;
 
-        let elDiv = document.createElement('div');
+        let elDiv = object.render.domElements.div;
         elDiv.classList.add('game-object');
         elDiv.id = object.id;
         elDiv.appendChild(el);
@@ -78,7 +84,8 @@ export default {
 
     removeObject(object) {
         let div = document.getElementById(object.id);
-        this._div.removeChild(div);
+        const parent = document.getElementById(object.parentId);
+        parent.removeChild(div);
         this.sceneObjects.splice(this.sceneObjects.indexOf(object), 1);
     },
 

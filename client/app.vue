@@ -17,7 +17,11 @@ const store = useMainStore();
 // Make pinia register callbacks for player joining/leaving
 store.registerCallbacks();
 
-client.connect("ws://localhost:5432");
+// DEV
+//client.connect("ws://localhost:5432");
+
+// PROD
+client.connect();
 
 </script>
 

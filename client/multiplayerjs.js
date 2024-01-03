@@ -23,7 +23,7 @@ export default {
         this.callbacks[eventName] = this.callbacks[eventName].filter(cb => cb !== callback);
     },
 
-    connect(url = `ws://${window.location.hostname}:3000`) {
+    connect(url = `ws://${window.location.host}`) {
 
         this.on("playerId", (data) => {
             console.log(`[MultiplayerJS] Received playerId: ${data.playerId}`)
@@ -62,7 +62,7 @@ export default {
 
     send(eventName, data) {
         const payload = { eventName, data };
-        console.log(payload);
+        // console.log(payload);
         this.socket.send(JSON.stringify(payload));
     },
 }

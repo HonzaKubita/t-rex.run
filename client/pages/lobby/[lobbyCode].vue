@@ -82,6 +82,8 @@ onUnmounted(() => {
 }
 
 .lobby-player-list {
+    max-width: 80vw;
+
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

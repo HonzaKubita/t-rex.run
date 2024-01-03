@@ -1,5 +1,5 @@
 <template>
-<div class="game">
+<div class="game" :class="{'fadeOut': fadeOut}">
 
     <h1 class="title">T-rex multiplayer</h1>
 
@@ -11,11 +11,28 @@
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia';
+import { useMainStore } from "@/stores/mainStore";
 import game from "@/game-src/gameMain";
+
+const store = useMainStore();
+const { podium } = storeToRefs(store);
+
+const fadeOut = ref(false);
 
 onMounted(() => {
     game.mountDiv(document.querySelector(".game-canvas"));
+
+    game.bindOnEnd((podiumData) => {
+
+        podium.value = podiumData;
+
+        setTimeout(() => fadeOut.value = true, 500);
+        setTimeout(() => navigateTo("/podium"), 2500);
+    });
+
     game.init();
+    game.start();
 });
 
 </script>
@@ -31,6 +48,20 @@ onMounted(() => {
 
 .game .title {
     margin: 30px
+}
+
+.fadeOut {
+    opacity: 0;
+    animation: fadeOut 2s;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 /* Game */
@@ -58,6 +89,26 @@ onMounted(() => {
     font-size: 8px;
 }
 
+.game-ghost {
+    transition: all 50ms;
+}
 
+.game-trex-dead {
+    transition: all 100ms;
+    transform: scale(0);
+    animation: trex-dead 1s;
+}
+
+@keyframes trex-dead {
+    0% {
+        transform: translateX(0px) translateY(0px) rotate(0deg) scale(1);;
+    }
+    99% {
+        transform: translateX(-600px) translateY(-100px) rotate(960deg) scale(1);;
+    }
+    100% {
+        transform: translateY(300px) scale(0);
+    }
+}
 
 </style>
