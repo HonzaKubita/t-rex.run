@@ -23,7 +23,7 @@ export default {
         this.callbacks[eventName] = this.callbacks[eventName].filter(cb => cb !== callback);
     },
 
-    connect(url = `ws://${window.location.host}`) {
+    connect(url = `wss://${window.location.host}`) {
 
         this.on("playerId", (data) => {
             console.log(`[MultiplayerJS] Received playerId: ${data.playerId}`)
