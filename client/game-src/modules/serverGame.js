@@ -60,6 +60,11 @@ export default {
         this.trexes[playerId].render.domElements.div.classList.add('game-trex-dead');
     },
 
+    onChangeSpeed(data) {
+        console.log("CHANGE SPEED");
+        this.speed = data.newSpeed;
+    },
+
     onPlayerLeft(data) {
         const playerId = data.playerId;
         render.removeObject(this.trexes[playerId]);
@@ -92,6 +97,7 @@ export default {
         client.on('game:playerUpdate', this.onGamePlayerUpdate.bind(this));
         client.on("game:newObstacle", this.onGameNewObstacle.bind(this));
         client.on("game:playerDead", this.onGamePlayerDead.bind(this));
+        client.on("game:changeSpeed", this.onChangeSpeed.bind(this));
 
         // Register general callbacks
         client.on('playerLeft', this.onPlayerLeft.bind(this));
@@ -103,17 +109,31 @@ export default {
             obstacle.position.x -= this.speed * deltaTime;
         });
 
+        // Remove obstacles that are out of screen
+        this.obstacles = this.obstacles.filter(obstacle => {
+            if (obstacle.position.x < -300) {
+                render.removeObject(obstacle);
+                return false;
+            }
+            return true;
+        });
+
         // Move ground
         this.ground.position.x -= this.speed * deltaTime;
         if (this.ground.position.x <= -1200) {
             this.ground.position.x = 0;
         }
+
+        // Update score
+        this.score.score = this.score.score + this.speed * deltaTime / 100;
     },
 
     removeEventCallbacks() {
         client.removeCallback('game:playerUpdate', this.onGamePlayerUpdate.bind(this));
         client.removeCallback('game:newObstacle', this.onGameNewObstacle.bind(this));
         client.removeCallback('game:playerDead', this.onGamePlayerDead.bind(this));
+        client.removeCallback('game:changeSpeed', this.onChangeSpeed.bind(this));
+
         client.removeCallback('playerLeft', this.onPlayerLeft.bind(this));
     }
 }

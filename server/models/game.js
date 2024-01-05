@@ -6,8 +6,12 @@ module.exports = class Game {
         this.players = [];
         this.gameState = "inLobby"; // inLobby is default when the game is created
 
-        this.obstacleCooldown = 100;
+        this.obstacleCooldown = 30;
         this.obstacleCooldownTimer = 0;
+
+        this.difficulty = 1;
+        this.difficultyCooldown = 1000;
+        this.difficultyCooldownTimer = 0;
 
         this.podium = [];
     }
@@ -107,15 +111,17 @@ module.exports = class Game {
 
         // Creating obstacle
         if (this.obstacleCooldownTimer <= 0) {
-            const shouldCreateObstacle = Math.random() < 0.3; // 30% chance to create an obstacle
+            const shouldCreateObstacle = Math.random() < 0.1; // 30% chance to create an obstacle
             if (shouldCreateObstacle) {
-                const obstacleType = Math.random() < 0.85 ? "cactus" : "bird"; // Randomly choose between "cactus" and "bird"
+                const obstacleType = Math.random() < 0.9 ? "cactus" : "bird"; // Randomly choose between "cactus" and "bird"
                 const obstacleSize = Math.random() < 0.7 ? "small" : "big"; // Randomly choose between "small" and "big"
                 const obstacleTier = Math.floor(Math.random() * 3); // Randomly choose between 0, 1, and 2
                 const obstacle = { type: obstacleType, x: 1000, y: 10, size: obstacleSize, tier: obstacleTier };
 
                 if (obstacleType == "bird") {
                     obstacle.y = Math.random() < 0.5 ? 10 : 30; // Randomly choose between 10 and 30 (bird height
+                   // Give the bird a random speed between -3 and 3
+                    obstacle.velocity = { x: Math.random() * 6 - 3, y: 0 };
                 }
 
                 this.broadcast("game:newObstacle", { obstacle });
@@ -123,6 +129,15 @@ module.exports = class Game {
             }
         } else {
             this.obstacleCooldownTimer--; // Decrease the cooldown
+        }
+
+        // Increasing difficulty
+        if (this.difficultyCooldownTimer <= 0) {
+            this.difficulty += 0.2;
+            this.broadcast("game:changeSpeed", { newSpeed: this.difficulty * 250 });
+            this.difficultyCooldownTimer = this.difficultyCooldown;
+        } else {
+            this.difficultyCooldownTimer--;
         }
 
         // Schedule next tick
