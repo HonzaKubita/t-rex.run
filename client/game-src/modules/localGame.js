@@ -66,16 +66,16 @@ export default {
         this.localTrex.controlsVelocity.y = 0;
     
         // User input
-        if (input.isPressed("ArrowUp") && this.localTrex.position.y <= this.groundHeight) {
+        if ((input.isPressed("ArrowUp") || input.isPressed("w") || input.isPressed(" ")) && this.localTrex.position.y <= this.groundHeight) {
             this.localTrex.velocity.y += this.trexJumpSpeed;
         }
-        if (input.isPressed("ArrowDown") && this.localTrex.position.y > this.groundHeight) {
+        if ((input.isPressed("ArrowDown") || input.isPressed("s")) && this.localTrex.position.y > this.groundHeight) {
             this.localTrex.controlsVelocity.y = -this.trexMoveSpeed;
         }
-        if (input.isPressed("ArrowLeft")) {
+        if (input.isPressed("ArrowLeft") || input.isPressed("a")) {
             this.localTrex.controlsVelocity.x = -this.trexMoveSpeed;
         }
-        if (input.isPressed("ArrowRight")) {
+        if (input.isPressed("ArrowRight") || input.isPressed("d")) {
             this.localTrex.controlsVelocity.x = this.trexMoveSpeed;
         }
     
@@ -92,7 +92,7 @@ export default {
             this.localTrex.state = "jump";
         }
 
-        if (this.localTrex.position.y == this.groundHeight && input.isPressed("ArrowDown")) {
+        if (this.localTrex.position.y == this.groundHeight && (input.isPressed("ArrowDown") || input.isPressed("s"))) {
             this.localTrex.state = "crouch";
         }
     }
