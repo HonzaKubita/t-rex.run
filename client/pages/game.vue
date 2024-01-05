@@ -104,7 +104,7 @@ onMounted(() => {
         transform: translateX(0px) translateY(0px) rotate(0deg) scale(1);;
     }
     99% {
-        transform: translateX(-600px) translateY(-100px) rotate(960deg) scale(1);;
+        transform: translateX(-600px) translateY(-100px) rotate(-180deg) scale(1);;
     }
     100% {
         transform: translateY(300px) scale(0);
